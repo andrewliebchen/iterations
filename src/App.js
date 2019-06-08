@@ -1,10 +1,9 @@
 import React from "react";
-import _ from "lodash";
 import { view } from "react-easy-state";
 import store, { defaultIteration } from "./store";
 
 const App = props => (
-  <div>
+  <div style={{ padding: 20 }}>
     <div>
       <div>
         <input
@@ -25,6 +24,7 @@ const App = props => (
             }
           >
             <option value="borderRadius">border-radius</option>
+            <option value="borderWidth">border-width</option>
             <option value="fontSize">font-size</option>
             <option value="padding">padding</option>
           </select>
@@ -52,13 +52,14 @@ const App = props => (
         Add
       </button>
     </div>
-    {_.times(store.count, i => {
-      const { property, increment, initialValue } = store.iterations[0];
+    {store.iterations.map((iteration, i) => {
       let style = {
         margin: 20,
         border: "1px solid",
         display: "inline-block"
       };
+
+      const { property, increment, initialValue } = iteration;
       style[property] = increment * i + initialValue;
 
       return (
